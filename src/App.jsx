@@ -1,180 +1,146 @@
 import React from "react";
 
-
-const pizzaData = [
+// Dados das pizzas traduzidos
+const dadosPizzas = [
   {
-    // Pizza
-    name: "Focaccia",
-    ingredients: "Bread with italian olive oil and rosemary",
-    price: 6,
-    photoName: "pizzas/focaccia.jpg",
-    soldOut: false,
+    nome: "Focaccia",
+    ingredientes: "Pão com azeite de oliva italiano e alecrim",
+    preco: 6,
+    nomeFoto: "pizzas/focaccia.jpg",
+    esgotada: false,
   },
-  // Pizza
   {
-    name: "Pizza Margherita",
-    ingredients: "Tomato and mozarella",
-    price: 10,
-    photoName: "pizzas/margherita.jpg",
-    soldOut: false,
+    nome: "Pizza Margherita",
+    ingredientes: "Molho de tomate e muçarela",
+    preco: 10,
+    nomeFoto: "pizzas/margherita.jpg",
+    esgotada: false,
   },
-  // Pizza
   {
-    name: "Pizza Spinaci",
-    ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
-    price: 12,
-    photoName: "pizzas/spinaci.jpg",
-    soldOut: false,
+    nome: "Pizza Spinaci (Espinafre)",
+    ingredientes: "Molho de tomate, muçarela, espinafre e queijo ricota",
+    preco: 12,
+    nomeFoto: "pizzas/spinaci.jpg",
+    esgotada: false,
   },
-  // Pizza
   {
-    name: "Pizza Funghi",
-    ingredients: "Tomato, mozarella, mushrooms, and onion",
-    price: 12,
-    photoName: "pizzas/funghi.jpg",
-    soldOut: false,
+    nome: "Pizza Funghi (Cogumelos)",
+    ingredientes: "Molho de tomate, muçarela, cogumelos e cebola",
+    preco: 12,
+    nomeFoto: "pizzas/funghi.jpg",
+    esgotada: false,
   },
-  // Pizza
   {
-    name: "Pizza Salamino",
-    ingredients: "Tomato, mozarella, and pepperoni",
-    price: 15,
-    photoName: "pizzas/salamino.jpg",
-    soldOut: true,
+    nome: "Pizza Salamino (Pepperoni)",
+    ingredientes: "Molho de tomate, muçarela e pepperoni",
+    preco: 15,
+    nomeFoto: "pizzas/salamino.jpg",
+    esgotada: true,
   },
-  // Pizza
   {
-    name: "Pizza Prosciutto",
-    ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
-    price: 18,
-    photoName: "pizzas/prosciutto.jpg",
-    soldOut: false,
+    nome: "Pizza Prosciutto (Presunto Cru)",
+    ingredientes: "Molho de tomate, muçarela, presunto cru, rúcula e burrata",
+    preco: 18,
+    nomeFoto: "pizzas/prosciutto.jpg",
+    esgotada: false,
   },
 ];
 
 export default function App() {
   return (
-    <div className="container">
-      <Header/>
-      <Menu/>
-      <Footer/>
-      
+    <div className="container-geral">
+      <Cabecalho />
+      <Cardapio />
+      <Rodape />
     </div>
   );
 }
 
-function Header() {
-  
-  return <header>
-    <h1 className="header-title">Fast React Pizza Co.</h1>
-    </header> 
-
+function Cabecalho() {
+  return (
+    <header className="cabecalho">
+      <h1 className="titulo-cabecalho">Pizzaria React Express Co.</h1>
+    </header>
+  );
 }
 
-function Menu () {
-  const pizzas = pizzaData
-  // const pizzas = [];
-  const numbPizzas = pizzas.length
-
+function Cardapio() {
+  const pizzas = dadosPizzas;
+  const quantidadePizzas = pizzas.length;
 
   return (
-    <main className="menu">
-      <h2 className="menu-title">Our menu</h2>
+    <main className="cardapio">
+      <h2 className="titulo-cardapio">Nosso Cardápio</h2>
 
-      {numbPizzas > 0 ? (
-    <ul className="pizzas">
-    {pizzas.map((pizza) => (
-      <Pizza
-        key={pizza.name}
-        name={pizza.name}
-        ingredient={pizza.ingredients}
-        photoName={pizza.photoName}
-        price={pizza.price}
-        soldOut={pizza.soldOut}
-        
-      />
-    ))}
-  </ul>
-) : (
-  <p>Nenhuma pizza disponível no momento.</p>
-)}
-
-      
-      
-      
-      
-
-
-
-      {/* <Pizza name = "Pizza Funghi" ingredient = "Tomato, mushrooms" price = {12} photo = 'src/assets/pizzas/funghi.jpg'   /> */}
-
-
-
-
-      </main>
-  )
-
-}
-
-function Pizza(props) {
-  console.log(props)
-
-  if (props.soldOut) return null;
-
-
-
-
-  return (
-    <li className="pizza">
-      <img className="img" src={props.photoName} alt={props.name} />
-      <div>
-      <h2>{props.name}</h2>
-      <p>{props.ingredient}</p>
-      
-      
-      <span>{props.price + 3}</span>
-      </div>
-      
-    </li>
-  )
-}
-
-
-function Footer() {
-  const hour = new Date().getHours()
-  const openHour  = 18
-  const closeHour = 23
-  const isOpen = hour >= openHour && hour <= closeHour;
-  console.log(isOpen);
-  
-
-  // if (hour >= openHour && hour  <= closeHour) {
-  //   alert("A pizzaria está aberta")
-  
-  // } else {
-  //   alert("A pizza está fechada no momento")
-  // }
-  
-
-  return (
-    <footer className="footer">
-      {isOpen ? (
-        <Order closeHour =  {closeHour}  />
-       
+      {quantidadePizzas > 0 ? (
+        <ul className="lista-pizzas">
+          {pizzas.map((pizza) => (
+            <ItemPizza // Renomeado para ItemPizza para clareza
+              key={pizza.nome}
+              nome={pizza.nome}
+              ingredientes={pizza.ingredientes} // Corrigido para 'ingredientes' (plural)
+              nomeFoto={pizza.nomeFoto}
+              preco={pizza.preco}
+              esgotada={pizza.esgotada}
+            />
+          ))}
+        </ul>
       ) : (
-        <p>Estamos fechados no momento. Venha nos visitar outra hora</p>
+        <p>Nenhuma pizza disponível no momento. Por favor, volte mais tarde!</p>
+      )}
+    </main>
+  );
+}
+
+// Renomeado para ItemPizza para evitar conflito com o nome do arquivo/conceito geral
+function ItemPizza(props) {
+  // console.log(props); // Mantido para depuração, se necessário
+
+  // Se a pizza estiver esgotada, não renderiza nada
+  if (props.esgotada) return null;
+
+  return (
+    <li className="item-pizza">
+      <img className="imagem-pizza" src={props.nomeFoto} alt={props.nome} />
+      <div>
+        <h3>{props.nome}</h3>
+        <p>{props.ingredientes}</p>
+        <span>R$ {props.preco.toFixed(2)}</span> {/* Exibindo o preço formatado */}
+      </div>
+    </li>
+  );
+}
+
+function Rodape() {
+  const horaAtual = new Date().getHours();
+  const horarioAbertura = 18;
+  const horarioFechamento = 23;
+  const estaAberto = horaAtual >= horarioAbertura && horaAtual < horarioFechamento; // Ajustado para < horarioFechamento
+  // console.log(estaAberto); // Mantido para depuração, se necessário
+
+  return (
+    <footer className="rodape">
+      {estaAberto ? (
+        <InformacaoPedido horarioFechamento={horarioFechamento} />
+      ) : (
+        <p>
+          Estamos fechados no momento. Nosso horário de funcionamento é das{" "}
+          {horarioAbertura}:00 às {horarioFechamento}:00.
+        </p>
       )}
     </footer>
   );
-
-}  
-
-
-function Order(props) {
-  return <div className="order">
-  <p>Estamos abertos até {props.closeHour}:00, venha nos visitar ou faça já o seu pedido!</p>
-  <button className="btn">Order</button>
-</div>
 }
 
-
+// Renomeado para InformacaoPedido
+function InformacaoPedido(props) {
+  return (
+    <div className="area-pedido">
+      <p>
+        Estamos abertos até às {props.horarioFechamento}:00. Venha nos visitar ou faça já
+        o seu pedido online!
+      </p>
+      <button className="botao-pedido">Fazer Pedido</button>
+    </div>
+  );
+}
