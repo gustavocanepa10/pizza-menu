@@ -1,146 +1,148 @@
 import React from "react";
 
-// Dados das pizzas traduzidos
-const dadosPizzas = [
+// Apenas nomes e ingredientes das pizzas traduzidos
+const pizzaData = [
   {
-    nome: "Focaccia",
-    ingredientes: "Pão com azeite de oliva italiano e alecrim",
-    preco: 6,
-    nomeFoto: "pizzas/focaccia.jpg",
-    esgotada: false,
+    name: "Focaccia", // Nome próprio, mantido
+    ingredients: "Pão com azeite de oliva italiano e alecrim", // Traduzido
+    price: 6,
+    photoName: "pizzas/focaccia.jpg",
+    soldOut: false,
   },
   {
-    nome: "Pizza Margherita",
-    ingredientes: "Molho de tomate e muçarela",
-    preco: 10,
-    nomeFoto: "pizzas/margherita.jpg",
-    esgotada: false,
+    name: "Pizza Margherita", // Nome próprio, mantido
+    ingredients: "Molho de tomate e muçarela", // Traduzido
+    price: 10,
+    photoName: "pizzas/margherita.jpg",
+    soldOut: false,
   },
   {
-    nome: "Pizza Spinaci (Espinafre)",
-    ingredientes: "Molho de tomate, muçarela, espinafre e queijo ricota",
-    preco: 12,
-    nomeFoto: "pizzas/spinaci.jpg",
-    esgotada: false,
+    name: "Pizza Spinaci (Espinafre)", // Nome original com tradução para clareza
+    ingredients: "Molho de tomate, muçarela, espinafre e queijo ricota", // Traduzido
+    price: 12,
+    photoName: "pizzas/spinaci.jpg",
+    soldOut: false,
   },
   {
-    nome: "Pizza Funghi (Cogumelos)",
-    ingredientes: "Molho de tomate, muçarela, cogumelos e cebola",
-    preco: 12,
-    nomeFoto: "pizzas/funghi.jpg",
-    esgotada: false,
+    name: "Pizza Funghi (Cogumelos)", // Nome original com tradução para clareza
+    ingredients: "Molho de tomate, muçarela, cogumelos e cebola", // Traduzido
+    price: 12,
+    photoName: "pizzas/funghi.jpg",
+    soldOut: false,
   },
   {
-    nome: "Pizza Salamino (Pepperoni)",
-    ingredientes: "Molho de tomate, muçarela e pepperoni",
-    preco: 15,
-    nomeFoto: "pizzas/salamino.jpg",
-    esgotada: true,
+    name: "Pizza Salamino (Pepperoni)", // Nome original com tradução para clareza
+    ingredients: "Molho de tomate, muçarela e pepperoni", // Traduzido
+    price: 15,
+    photoName: "pizzas/salamino.jpg",
+    soldOut: true,
   },
   {
-    nome: "Pizza Prosciutto (Presunto Cru)",
-    ingredientes: "Molho de tomate, muçarela, presunto cru, rúcula e burrata",
-    preco: 18,
-    nomeFoto: "pizzas/prosciutto.jpg",
-    esgotada: false,
+    name: "Pizza Prosciutto (Presunto Cru)", // Nome original com tradução para clareza
+    ingredients: "Molho de tomate, muçarela, presunto cru, rúcula e queijo burrata", // Traduzido
+    price: 18,
+    photoName: "pizzas/prosciutto.jpg",
+    soldOut: false,
   },
 ];
 
 export default function App() {
   return (
-    <div className="container-geral">
-      <Cabecalho />
-      <Cardapio />
-      <Rodape />
+    <div className="container"> {/* CSS Class original */}
+      <Header />
+      <Menu />
+      <Footer />
     </div>
   );
 }
 
-function Cabecalho() {
+function Header() {
   return (
-    <header className="cabecalho">
-      <h1 className="titulo-cabecalho">Pizzaria React Express Co.</h1>
+    <header> {/* Tag original */}
+      <h1 className="header-title">Pizzaria React Express Co.</h1> {/* Texto traduzido, CSS Class original */}
     </header>
   );
 }
 
-function Cardapio() {
-  const pizzas = dadosPizzas;
-  const quantidadePizzas = pizzas.length;
+function Menu() {
+  const pizzas = pizzaData; // Variável original
+  // const pizzas = [];
+  const numbPizzas = pizzas.length; // Variável original
 
   return (
-    <main className="cardapio">
-      <h2 className="titulo-cardapio">Nosso Cardápio</h2>
+    <main className="menu"> {/* CSS Class original */}
+      <h2 className="menu-title">Nosso Cardápio</h2> {/* Texto traduzido, CSS Class original */}
 
-      {quantidadePizzas > 0 ? (
-        <ul className="lista-pizzas">
+      {numbPizzas > 0 ? (
+        <ul className="pizzas"> {/* CSS Class original */}
           {pizzas.map((pizza) => (
-            <ItemPizza // Renomeado para ItemPizza para clareza
-              key={pizza.nome}
-              nome={pizza.nome}
-              ingredientes={pizza.ingredientes} // Corrigido para 'ingredientes' (plural)
-              nomeFoto={pizza.nomeFoto}
-              preco={pizza.preco}
-              esgotada={pizza.esgotada}
+            <Pizza // Componente original
+              key={pizza.name}
+              name={pizza.name}
+              ingredient={pizza.ingredients} // Prop 'ingredient' como no original
+              photoName={pizza.photoName}
+              price={pizza.price}
+              soldOut={pizza.soldOut}
             />
           ))}
         </ul>
       ) : (
-        <p>Nenhuma pizza disponível no momento. Por favor, volte mais tarde!</p>
+        <p>Nenhuma pizza disponível no momento.</p> // Texto já estava em PT
       )}
+      {/* <Pizza name = "Pizza Funghi" ingredient = "Tomato, mushrooms" price = {12} photo = 'src/assets/pizzas/funghi.jpg'  /> */}
     </main>
   );
 }
 
-// Renomeado para ItemPizza para evitar conflito com o nome do arquivo/conceito geral
-function ItemPizza(props) {
-  // console.log(props); // Mantido para depuração, se necessário
+function Pizza(props) { // Componente original com props originais
+  // console.log(props);
 
-  // Se a pizza estiver esgotada, não renderiza nada
-  if (props.esgotada) return null;
+  if (props.soldOut) return null;
 
   return (
-    <li className="item-pizza">
-      <img className="imagem-pizza" src={props.nomeFoto} alt={props.nome} />
+    <li className="pizza"> {/* CSS Class original */}
+      <img className="img" src={props.photoName} alt={props.name} /> {/* CSS Class original, alt usa o nome da pizza (pode estar traduzido de pizzaData) */}
       <div>
-        <h3>{props.nome}</h3>
-        <p>{props.ingredientes}</p>
-        <span>R$ {props.preco.toFixed(2)}</span> {/* Exibindo o preço formatado */}
+        <h2>{props.name}</h2>
+        <p>{props.ingredient}</p>
+        <span>R$ {(props.price + 0).toFixed(2)}</span> {/* Mantendo a lógica original (somar 0 para garantir número e formatar), mas pode ser só props.price.toFixed(2) */}
       </div>
     </li>
   );
 }
 
-function Rodape() {
-  const horaAtual = new Date().getHours();
-  const horarioAbertura = 18;
-  const horarioFechamento = 23;
-  const estaAberto = horaAtual >= horarioAbertura && horaAtual < horarioFechamento; // Ajustado para < horarioFechamento
-  // console.log(estaAberto); // Mantido para depuração, se necessário
+function Footer() { // Componente original
+  const hour = new Date().getHours(); // Variável original
+  const openHour = 18; // Variável original
+  const closeHour = 23; // Variável original
+  const isOpen = hour >= openHour && hour < closeHour; // Variável e lógica original (ajustado para < closeHour)
+  // console.log(isOpen);
+
+  // if (hour >= openHour && hour  <= closeHour) {
+  //   alert("A pizzaria está aberta")
+  // } else {
+  //   alert("A pizza está fechada no momento")
+  // }
 
   return (
-    <footer className="rodape">
-      {estaAberto ? (
-        <InformacaoPedido horarioFechamento={horarioFechamento} />
+    <footer className="footer"> {/* CSS Class original */}
+      {isOpen ? (
+        <Order closeHour={closeHour} /> // Componente original, prop original
       ) : (
-        <p>
-          Estamos fechados no momento. Nosso horário de funcionamento é das{" "}
-          {horarioAbertura}:00 às {horarioFechamento}:00.
-        </p>
+        <p>Estamos fechados no momento. Nosso horário de funcionamento é das {openHour}:00 às {closeHour}:00.</p> // Texto ajustado para PT
       )}
     </footer>
   );
 }
 
-// Renomeado para InformacaoPedido
-function InformacaoPedido(props) {
+function Order(props) { // Componente original com props originais
   return (
-    <div className="area-pedido">
+    <div className="order"> {/* CSS Class original */}
       <p>
-        Estamos abertos até às {props.horarioFechamento}:00. Venha nos visitar ou faça já
-        o seu pedido online!
-      </p>
-      <button className="botao-pedido">Fazer Pedido</button>
+        Estamos abertos até às {props.closeHour}:00. Venha nos visitar ou faça já o
+        seu pedido!
+      </p> {/* Texto já estava em PT */}
+      <button className="btn">Fazer Pedido</button> {/* Texto do botão traduzido, CSS Class original */}
     </div>
   );
 }
